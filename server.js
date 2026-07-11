@@ -3,6 +3,10 @@ import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
+import organizationsModel from './src/models/organizations.js';
+import projectsModel from './src/models/projects.js';
+import categoriesModel from './src/models/categories.js';
+
 dotenv.config();
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
@@ -22,16 +26,34 @@ app.get('/', (req, res) => {
     res.render('home', { title: 'Home' });
 });
 
-app.get('/organizations', (req, res) => {
-    res.render('organizations', { title: 'Organizations' });
+app.get('/organizations', async (req, res) => {
+  try {
+    const organizations = await organizationsModel.getAllOrganizations();
+    res.render('organizations', { title: 'Organizations', organizations });
+  } catch (err) {
+    console.error('Error fetching organizations:', err);
+    res.status(500).send('Server error');
+  }
 });
 
-app.get('/projects', (req, res) => {
-    res.render('projects', { title: 'Projects' });
+app.get('/projects', async (req, res) => {
+  try {
+    const projects = await projectsModel.getAllProjects();
+    res.render('projects', { title: 'Projects', projects });
+  } catch (err) {
+    console.error('Error fetching projects:', err);
+    res.status(500).send('Server error');
+  }
 });
 
-app.get('/categories', (req, res) => {
-    res.render('categories', { title: 'Categories' });
+app.get('/categories', async (req, res) => {
+  try {
+    const categories = await categoriesModel.getAllCategories();
+    res.render('categories', { title: 'Categories', categories });
+  } catch (err) {
+    console.error('Error fetching categories:', err);
+    res.status(500).send('Server error');
+  }
 });
 
 app.listen(PORT, () => {

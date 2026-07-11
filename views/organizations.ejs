@@ -4,18 +4,12 @@
     <h1>Organizations</h1>
     <p>Here are a few of our partner organizations:</p>
     <ul class="org-list">
+        <% organizations.forEach(org => { %>
         <li>
-            <img src="/images/brightfuture.png" alt="BrightFuture Builders logo" class="org-logo">
-            <strong>BrightFuture Builders</strong>: info@brightfuture.org
+            <img src="<%= org.organization_image %>" alt="<%= org.organization_name %> logo" class="org-logo">
+            <strong><%= org.organization_name %></strong>: <%= org.organization_email %>
         </li>
-        <li>
-            <img src="/images/greenharvest.png" alt="GreenHarvest Growers logo" class="org-logo">
-            <strong>GreenHarvest Growers</strong>: contact@greenharvest.org
-        </li>
-        <li>
-            <img src="/images/unityserve.png" alt="UnityServe Volunteers logo" class="org-logo">
-            <strong>UnityServe Volunteers</strong>: hello@unityserve.org
-        </li>
+        <% }) %>
     </ul>
 </main>
 

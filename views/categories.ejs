@@ -4,10 +4,9 @@
     <h1>Categories</h1>
     <p>Browse volunteer opportunities by category:</p>
     <ul>
-        <li>Environmental</li>
-        <li>Education</li>
-        <li>Community Support</li>
-        <li>Health &amp; Wellness</li>
+        <% categories.forEach(category => { %>
+        <li><%= category.category_name %></li>
+        <% }) %>
     </ul>
 </main>
 
