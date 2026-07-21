@@ -5,4 +5,12 @@ async function getAllOrganizations() {
   return result.rows;
 }
 
-export default { getAllOrganizations };
+async function getOrganizationById(organizationId) {
+  const result = await pool.query(
+    'SELECT * FROM organizations WHERE organization_id = $1',
+    [organizationId]
+  );
+  return result.rows[0];
+}
+
+export default { getAllOrganizations, getOrganizationById };

@@ -126,3 +126,27 @@ footer {
     height: 50px;
     flex-shrink: 0;
 }
+/* ===== Category tags (project detail page) ===== */
+.category-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0 20px 0;
+}
+
+.category-tags .tag {
+    display: inline-block;
+    background-color: #eef2f7;
+    color: #1e3a5f;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    border: 1px solid #c7d5e6;
+}
+
+.category-tags .tag:hover {
+    background-color: #1e3a5f;
+    color: #fff;
+    border-color: #1e3a5f;
+}
