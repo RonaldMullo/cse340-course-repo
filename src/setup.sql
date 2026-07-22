@@ -14,9 +14,12 @@ CREATE TABLE projects (
   project_id SERIAL PRIMARY KEY,
   project_name VARCHAR(100) NOT NULL,
   project_description TEXT,
+  project_location VARCHAR(150) NOT NULL,
   project_date DATE NOT NULL,
   organization_id INT NOT NULL,
-  FOREIGN KEY (organization_id) REFERENCES organizations(organization_id) ON DELETE CASCADE
+  FOREIGN KEY (organization_id)
+    REFERENCES organizations(organization_id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE categories (
@@ -37,13 +40,55 @@ INSERT INTO organizations (organization_name, organization_email, organization_i
 ('GreenHarvest Growers', 'contact@greenharvest.org', '/images/greenharvest.png'),
 ('UnityServe Volunteers', 'hello@unityserve.org', '/images/unityserve.png');
 
-INSERT INTO projects (project_name, project_description, project_date, organization_id) VALUES
-('Park Cleanup', 'Join us to clean up local parks and make them beautiful!', '2026-08-15', 2),
-('Food Drive', 'Help collect and distribute food to those in need.', '2026-08-01', 1),
-('Community Tutoring', 'Volunteer to tutor students in various subjects.', '2026-09-10', 3),
-('Health Fair', 'Free health screenings and wellness resources for the community.', '2026-07-25', 3),
-('Senior Meal Delivery', 'Deliver warm meals to elderly residents in the area.', '2026-10-01', 1),
-('Beach Cleanup', 'A past event kept here to demonstrate that old projects are excluded.', '2025-05-01', 2);
+INSERT INTO projects (
+  project_name,
+  project_description,
+  project_location,
+  project_date,
+  organization_id
+) VALUES
+(
+  'Park Cleanup',
+  'Join us to clean up local parks and make them beautiful!',
+  'Central City Park',
+  '2026-08-15',
+  2
+),
+(
+  'Food Drive',
+  'Help collect and distribute food to those in need.',
+  'Community Center',
+  '2026-08-01',
+  1
+),
+(
+  'Community Tutoring',
+  'Volunteer to tutor students in various subjects.',
+  'Downtown Library',
+  '2026-09-10',
+  3
+),
+(
+  'Health Fair',
+  'Free health screenings and wellness resources for the community.',
+  'Civic Hall',
+  '2026-07-25',
+  3
+),
+(
+  'Senior Meal Delivery',
+  'Deliver warm meals to elderly residents in the area.',
+  'Northside Neighborhood',
+  '2026-10-01',
+  1
+),
+(
+  'Beach Cleanup',
+  'Help clean the beach and protect the local environment.',
+  'Riverside Beach',
+  '2025-05-01',
+  2
+);
 
 INSERT INTO categories (category_name) VALUES
 ('Environmental'),

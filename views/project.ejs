@@ -1,20 +1,48 @@
 <%- include('partials/header') %>
 
 <main>
-    <h1><%= project.project_name %></h1>
-    <p><%= project.project_description %></p>
-    <p>Date: <%= new Date(project.project_date).toLocaleDateString() %></p>
-    <p>Hosted by: <a href="/organizations/<%= project.organization_id %>"><%= project.organization_name %></a></p>
+  <h1><%= project.project_name %></h1>
 
-    <% if (categories.length > 0) { %>
-        <div class="category-tags">
-            <% categories.forEach(category => { %>
-            <a href="/categories/<%= category.category_id %>" class="tag"><%= category.category_name %></a>
-            <% }) %>
-        </div>
-    <% } %>
+  <p><%= project.project_description %></p>
 
-    <p><a href="/projects">&laquo; Back to Projects</a></p>
+  <p>
+    <strong>Location:</strong>
+    <%= project.project_location %>
+  </p>
+
+  <p>
+    <strong>Date:</strong>
+    <%= new Date(project.project_date).toLocaleDateString(
+      'en-US',
+      { timeZone: 'UTC' }
+    ) %>
+  </p>
+
+  <p>
+    <strong>Hosted by:</strong>
+    <a href="/organizations/<%= project.organization_id %>">
+      <%= project.organization_name %>
+    </a>
+  </p>
+
+  <% if (categories && categories.length > 0) { %>
+    <h2>Categories</h2>
+
+    <div class="category-tags">
+      <% categories.forEach((category) => { %>
+        <a
+          href="/categories/<%= category.category_id %>"
+          class="tag"
+        >
+          <%= category.category_name %>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <p>
+    <a href="/projects">&laquo; Back to Projects</a>
+  </p>
 </main>
 
 <%- include('partials/footer') %>

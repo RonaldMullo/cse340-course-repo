@@ -5,4 +5,4 @@ const router = express.Router();
 
 router.get('/', homeController.buildHome);
 
-export default router;
+export default router;  
