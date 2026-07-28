@@ -1,0 +1,35 @@
+<%- include('partials/header') %>
+
+<main>
+  <h1><%= title %></h1>
+
+  <form action="/new-category" method="POST">
+    <div class="form-group">
+      <label for="categoryName">
+        Category Name
+      </label>
+
+      <input
+        type="text"
+        id="categoryName"
+        name="categoryName"
+        value="<%= categoryName %>"
+        maxlength="100"
+        required
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit">
+        Create Category
+      </button>
+
+      <a href="/categories">
+        Cancel
+      </a>
+    </div>
+  </form>
+</main>
+
+<%- include('partials/footer') %>

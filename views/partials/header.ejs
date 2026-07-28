@@ -17,4 +17,19 @@
             </ul>
         </nav>
     </header>
-    
+    <% if (typeof flash === 'function') { %>
+  <% const messages = flash(); %>
+
+  <section class="flash-container" aria-live="polite">
+    <% Object.keys(messages).forEach((type) => { %>
+      <% messages[type].forEach((message) => { %>
+        <div
+          class="alert <%= type %>"
+          role="<%= type === 'error' ? 'alert' : 'status' %>"
+        >
+          <%= message %>
+        </div>
+      <% }); %>
+    <% }); %>
+  </section>
+<% } %>

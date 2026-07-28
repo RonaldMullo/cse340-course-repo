@@ -1,0 +1,40 @@
+<%- include('partials/header') %>
+
+<main>
+  <h1><%= title %></h1>
+
+  <form
+    action="/edit-category/<%= category.category_id %>"
+    method="POST"
+  >
+    <div class="form-group">
+      <label for="categoryName">
+        Category Name
+      </label>
+
+      <input
+        type="text"
+        id="categoryName"
+        name="categoryName"
+        value="<%= category.category_name %>"
+        maxlength="100"
+        required
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit">
+        Update Category
+      </button>
+
+      <a
+        href="/categories/<%= category.category_id %>"
+      >
+        Cancel
+      </a>
+    </div>
+  </form>
+</main>
+
+<%- include('partials/footer') %>
