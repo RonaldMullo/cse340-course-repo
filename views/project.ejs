@@ -26,23 +26,40 @@
   </p>
 
   <% if (categories && categories.length > 0) { %>
-    <h2>Categories</h2>
+  <h2>Categories</h2>
 
-    <div class="category-tags">
-      <% categories.forEach((category) => { %>
-        <a
-          href="/categories/<%= category.category_id %>"
-          class="tag"
-        >
-          <%= category.category_name %>
-        </a>
-      <% }) %>
-    </div>
-  <% } %>
+  <div class="category-tags">
+    <% categories.forEach((category) => { %>
+      <a
+        href="/categories/<%= category.category_id %>"
+        class="tag"
+      >
+        <%= category.category_name %>
+      </a>
+    <% }) %>
+  </div>
+<% } else { %>
+  <p>No categories assigned yet.</p>
+<% } %>
 
-  <p>
-    <a href="/projects">&laquo; Back to Projects</a>
-  </p>
-</main>
+<div class="form-actions">
+  <a
+    class="button-link"
+    href="/edit-project/<%= project.project_id %>"
+  >
+    Edit Project
+  </a>
 
-<%- include('partials/footer') %>
+  <a
+    class="button-link"
+    href="/assign-categories/<%= project.project_id %>"
+  >
+    Assign Categories
+  </a>
+</div>
+
+<p>
+  <a href="/projects">
+    &laquo; Back to Projects
+  </a>
+</p>

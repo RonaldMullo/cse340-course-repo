@@ -6,8 +6,9 @@ DROP TABLE IF EXISTS organizations;
 CREATE TABLE organizations (
   organization_id SERIAL PRIMARY KEY,
   organization_name VARCHAR(100) NOT NULL,
-  organization_email VARCHAR(100),
-  organization_image VARCHAR(255)
+  organization_description TEXT NOT NULL,
+  organization_email VARCHAR(100) NOT NULL,
+  organization_image VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE projects (
@@ -35,59 +36,29 @@ CREATE TABLE project_categories (
   FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
 );
 
-INSERT INTO organizations (organization_name, organization_email, organization_image) VALUES
-('BrightFuture Builders', 'info@brightfuture.org', '/images/brightfuture.png'),
-('GreenHarvest Growers', 'contact@greenharvest.org', '/images/greenharvest.png'),
-('UnityServe Volunteers', 'hello@unityserve.org', '/images/unityserve.png');
-
-INSERT INTO projects (
-  project_name,
-  project_description,
-  project_location,
-  project_date,
-  organization_id
+INSERT INTO organizations (
+  organization_name,
+  organization_description,
+  organization_email,
+  organization_image
 ) VALUES
 (
-  'Park Cleanup',
-  'Join us to clean up local parks and make them beautiful!',
-  'Central City Park',
-  '2026-08-15',
-  2
+  'BrightFuture Builders',
+  'Supports community development and assistance projects.',
+  'info@brightfuture.org',
+  '/images/brightfuture.png'
 ),
 (
-  'Food Drive',
-  'Help collect and distribute food to those in need.',
-  'Community Center',
-  '2026-08-01',
-  1
+  'GreenHarvest Growers',
+  'Promotes environmental care and sustainable community activities.',
+  'contact@greenharvest.org',
+  '/images/greenharvest.png'
 ),
 (
-  'Community Tutoring',
-  'Volunteer to tutor students in various subjects.',
-  'Downtown Library',
-  '2026-09-10',
-  3
-),
-(
-  'Health Fair',
-  'Free health screenings and wellness resources for the community.',
-  'Civic Hall',
-  '2026-07-25',
-  3
-),
-(
-  'Senior Meal Delivery',
-  'Deliver warm meals to elderly residents in the area.',
-  'Northside Neighborhood',
-  '2026-10-01',
-  1
-),
-(
-  'Beach Cleanup',
-  'Help clean the beach and protect the local environment.',
-  'Riverside Beach',
-  '2025-05-01',
-  2
+  'UnityServe Volunteers',
+  'Connects volunteers with education, health, and service opportunities.',
+  'hello@unityserve.org',
+  '/images/unityserve.png'
 );
 
 INSERT INTO categories (category_name) VALUES

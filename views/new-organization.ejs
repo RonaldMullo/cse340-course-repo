@@ -1,0 +1,68 @@
+<%- include('partials/header') %>
+
+<main>
+  <h1><%= title %></h1>
+
+  <form action="/new-organization" method="POST">
+    <div class="form-group">
+      <label for="name">
+        Organization Name
+      </label>
+
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value="<%= formData.name %>"
+        maxlength="100"
+        required
+        oninvalid="this.setCustomValidity('Please fill out this field.')"
+        oninput="this.setCustomValidity('')"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">
+        Description
+      </label>
+
+      <textarea
+        id="description"
+        name="description"
+        maxlength="500"
+        required
+        oninvalid="this.setCustomValidity('Please fill out this field.')"
+        oninput="this.setCustomValidity('')"
+      ><%= formData.description %></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="contactEmail">
+        Contact Email
+      </label>
+
+      <input
+        type="email"
+        id="contactEmail"
+        name="contactEmail"
+        value="<%= formData.contactEmail %>"
+        maxlength="100"
+        required
+        oninvalid="this.setCustomValidity('Please enter a valid email address.')"
+        oninput="this.setCustomValidity('')"
+      />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit">
+        Create Organization
+      </button>
+
+      <a href="/organizations">
+        Cancel
+      </a>
+    </div>
+  </form>
+</main>
+
+<%- include('partials/footer') %>

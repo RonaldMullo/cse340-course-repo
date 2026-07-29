@@ -4,6 +4,7 @@ import {
 } from 'express-validator';
 
 import categoriesModel from '../models/categories.js';
+import projectsModel from '../models/projects.js';
 
 const categoryValidation = [
   body('categoryName')
@@ -22,12 +23,12 @@ async function buildCategories(req, res, next) {
     const categories =
       await categoriesModel.getAllCategories();
 
-    res.render('categories', {
+    return res.render('categories', {
       title: 'Categories',
       categories,
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 
@@ -67,7 +68,7 @@ async function buildCategoryDetail(req, res, next) {
 }
 
 function showNewCategoryForm(req, res) {
-  res.render('new-category', {
+  return res.render('new-category', {
     title: 'Add New Category',
     categoryName: '',
   });
@@ -203,6 +204,157 @@ async function processEditCategoryForm(req, res, next) {
     return next(error);
   }
 }
+async function showAssignCategoriesForm(
+  req,
+  res,
+  next
+) {
+  try {
+    const projectId = Number.parseInt(
+      req.params.projectId,
+      10
+    );
+
+    if (
+      !Number.isInteger(projectId) ||
+      projectId <= 0
+    ) {
+      return res.status(404).render('errors/404', {
+        title: 'Page Not Found',
+      });
+    }
+
+    const project =
+      await projectsModel.getProjectById(projectId);
+
+    if (!project) {
+      return res.status(404).render('errors/404', {
+        title: 'Page Not Found',
+      });
+    }
+
+    const categories =
+      await categoriesModel.getAllCategories();
+
+    const assignedCategories =
+      await categoriesModel.getCategoriesByProjectId(
+        projectId
+      );
+
+    const assignedCategoryIds =
+      assignedCategories.map((category) =>
+        Number(category.category_id)
+      );
+
+    return res.render('assign-categories', {
+      title: 'Assign Categories to Project',
+      project,
+      categories,
+      assignedCategoryIds,
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+async function processAssignCategoriesForm(
+  req,
+  res,
+  next
+) {
+  try {
+    const projectId = Number.parseInt(
+      req.params.projectId,
+      10
+    );
+
+    if (
+      !Number.isInteger(projectId) ||
+      projectId <= 0
+    ) {
+      return res.status(404).render('errors/404', {
+        title: 'Page Not Found',
+      });
+    }
+
+    const project =
+      await projectsModel.getProjectById(projectId);
+
+    if (!project) {
+      return res.status(404).render('errors/404', {
+        title: 'Page Not Found',
+      });
+    }
+
+    /*
+     * When one checkbox is selected, Express returns a string.
+     * When several are selected, Express returns an array.
+     * When none are selected, the property is undefined.
+     */
+    const selectedCategoryIds =
+      req.body.categoryIds || [];
+
+    const rawCategoryIds =
+      Array.isArray(selectedCategoryIds)
+        ? selectedCategoryIds
+        : [selectedCategoryIds];
+
+    const categoryIds = [
+      ...new Set(
+        rawCategoryIds
+          .map((categoryId) =>
+            Number.parseInt(categoryId, 10)
+          )
+          .filter(
+            (categoryId) =>
+              Number.isInteger(categoryId) &&
+              categoryId > 0
+          )
+      ),
+    ];
+
+    // Confirm that the submitted category IDs actually exist.
+    const allCategories =
+      await categoriesModel.getAllCategories();
+
+    const validCategoryIds = new Set(
+      allCategories.map((category) =>
+        Number(category.category_id)
+      )
+    );
+
+    const containsInvalidCategory =
+      categoryIds.some(
+        (categoryId) =>
+          !validCategoryIds.has(categoryId)
+      );
+
+    if (containsInvalidCategory) {
+      req.flash(
+        'error',
+        'One or more selected categories are invalid.'
+      );
+
+      return res.redirect(
+        `/assign-categories/${projectId}`
+      );
+    }
+
+    await categoriesModel.updateCategoryAssignments(
+      projectId,
+      categoryIds
+    );
+
+    req.flash(
+      'success',
+      'Project categories updated successfully!'
+    );
+
+    return res.redirect(`/projects/${projectId}`);
+  } catch (error) {
+    return next(error);
+  }
+}
 
 export default {
   categoryValidation,
@@ -212,4 +364,6 @@ export default {
   processNewCategoryForm,
   showEditCategoryForm,
   processEditCategoryForm,
+  showAssignCategoriesForm,
+  processAssignCategoriesForm,
 };
