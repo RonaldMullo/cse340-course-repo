@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<main>
+  <h1><%= title %></h1>
+
+  <section>
+    <h2>
+      Welcome, <%= name %>
+    </h2>
+
+    <p>
+      Email:
+      <strong><%= email %></strong>
+    </p>
+
+    <p>
+      Role:
+      <strong><%= role %></strong>
+    </p>
+
+    <a href="/logout">
+      Log Out
+    </a>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

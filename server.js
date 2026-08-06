@@ -59,6 +59,20 @@ app.use(express.json());
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) => {
+  res.locals.isLoggedIn = Boolean(
+    req.session && req.session.user
+  );
+
+  res.locals.currentUser =
+    req.session?.user || null;
+
+  res.locals.NODE_ENV =
+    process.env.NODE_ENV;
+
+  next();
+});
+
 // Application routes
 app.use(router);
 

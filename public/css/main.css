@@ -61,6 +61,12 @@ nav a:hover::after {
     transform: scaleX(1);
 }
 
+nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
 /* ===== Main content ===== */
 main {
     max-width: 800px;

@@ -20,7 +20,10 @@
       <% }) %>
     </ul>
   <% } %>
-
+<% if (
+    isLoggedIn &&
+    currentUser.role_name === 'admin'
+  ) { %>
   <p>
     <a
       class="button-link"
@@ -29,7 +32,7 @@
       Edit Category
     </a>
   </p>
-
+<% } %>
   <p>
     <a href="/categories">
       &laquo; Back to Categories

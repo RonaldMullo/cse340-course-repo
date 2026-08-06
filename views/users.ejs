@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+
+<main>
+  <h1><%= title %></h1>
+
+  <% if (users.length === 0) { %>
+    <p>No users were found.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% users.forEach((user) => { %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role_name %></td>
+            <td>
+              <%= new Date(
+                user.created_at
+              ).toLocaleDateString() %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+
+  <p>
+    <a href="/dashboard">
+      Back to Dashboard
+    </a>
+  </p>
+</main>
+
+<%- include('partials/footer') %>

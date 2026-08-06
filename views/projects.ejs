@@ -42,11 +42,16 @@
       <% }) %>
     </section>
   <% } %>
+  <% if (
+    isLoggedIn &&
+    currentUser.role_name === 'admin'
+  ) { %>
   <p>
   <a class="button-link" href="/new-project">
     Add New Service Project
   </a>
 </p>
+<% } %>
 </main>
 
 <%- include('partials/footer') %>

@@ -7,16 +7,27 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/organizations">Organizations</a></li>
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/categories">Categories</a></li>
-            </ul>
-        </nav>
-    </header>
+    <<header>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/organizations">Organizations</a>
+    <a href="/projects">Projects</a>
+    <a href="/categories">Categories</a>
+
+    <% if (isLoggedIn) { %>
+      <a href="/dashboard">Dashboard</a>
+
+      <% if (currentUser.role_name === 'admin') { %>
+        <a href="/users">Users</a>
+      <% } %>
+
+      <a href="/logout">Log Out</a>
+    <% } else { %>
+      <a href="/register">Register</a>
+      <a href="/login">Log In</a>
+    <% } %>
+  </nav>
+</header>
     <% if (typeof flash === 'function') { %>
   <% const messages = flash(); %>
 
